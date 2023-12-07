@@ -1,1 +1,46 @@
-<p>product-list works!</p>
+<div class="layout row">
+    <div class="filter col-3">
+    </div>
+    <div class="products-list col-5">
+        <div class="products-card card" style="width: 24em;" *ngFor="let product of paginationModel?.products;  index as i ">
+            <div id="carousel-{{ product.id }}" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div *ngFor="let image of product.images; let i = index" class="carousel-item"
+                        [class.active]="i === currentIndex">
+                        <img [src]="image" class="d-block w-100" alt="Product Image">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" (click)="prevImage(i)" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" (click)="nextImage(i)" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ product.title }}</h5>
+                <p class="card-text">Description: {{ product.description }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ product.price }} $</li>
+                <li class="list-group-item">{{ product.rating }} out of 5</li>
+                <li class="list-group-item">{{ product.stock }} stock</li>
+            </ul>
+        </div>
+        <div class="pagination">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li (click)="onChangePage('pr',null)" class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item" *ngFor="let item of [].constructor(pageCount);  index as i" (click)="onChangePage('wi',i+1)">
+                        <a class="page-link" href="#">{{i + 1}}</a>
+                    </li>
+                    <li (click)="onChangePage('nx', null)" class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="basket col-4">
+    </div>
+</div>
